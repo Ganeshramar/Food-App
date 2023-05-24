@@ -1,0 +1,8 @@
+{
+  "name": "food-ordering-app",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}

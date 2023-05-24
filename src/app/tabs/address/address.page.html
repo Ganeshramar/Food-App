@@ -1,0 +1,122 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title color="tertiary">
+      Delivery Place
+      <ion-icon name="fast-food-outline"></ion-icon>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+<ng-container *ngIf="isOrdered==false">
+<ion-toolbar slot="fixed">
+  <ion-buttons slot="start" mode="md">
+    <ion-back-button defaultHref="/tabs/cart"></ion-back-button>
+  </ion-buttons>
+</ion-toolbar>
+
+<div>
+  <app-map></app-map>
+</div>
+
+  <form [formGroup]="form">
+    <ion-list>
+      <ion-item lines="none">
+        <ion-icon name="location-outline" color="dark" slot="start"></ion-icon>
+        <ion-label>{{location_name}}</ion-label>
+        <ion-button slot="end" size="small" color="light">
+          <span>CHANGE</span>
+        </ion-button>
+      </ion-item>
+      <ion-row class="ion-padding-horizontal ion-text-justify">
+        <ion-note class="ion-text-wrap ion-padding-horizontal">
+          <!-- {{location?.address}} -->
+          For inputs that do not render the label immediately next to the input, developers may continue to use "ion-label" but must manually associate the label with the input by using "aria-labelledby".
+        </ion-note>
+      </ion-row>
+      <ion-item-group class="ion-padding">
+        <ion-item>
+          <ion-label color="medium" position="floating">
+           <span>HOUSE / FLAT / BLOCK NO.</span>
+          </ion-label>
+          <ion-input type="text" autocomplete autocorrect formControlName="house"></ion-input>
+          <ion-icon 
+            name="checkmark-outline" 
+            slot="end" 
+            color="primary" 
+            *ngIf="form.get('house').valid">
+          </ion-icon>
+        </ion-item>
+        <ion-item>
+          <ion-label color="medium" position="floating">
+           <span>LANDMARK</span>
+          </ion-label>
+          <ion-input type="text" autocomplete autocorrect formControlName="landmark"></ion-input>
+          <ion-icon 
+            name="checkmark-outline" 
+            slot="end" 
+            color="primary" 
+            *ngIf="form.get('landmark').valid">
+          </ion-icon>
+        </ion-item>
+        <ion-item>
+          <ion-label color="medium" position="floating">
+           <span>Area</span>
+          </ion-label>
+          <ion-input type="text" autocomplete autocorrect formControlName="title"></ion-input>
+          <ion-icon 
+            name="checkmark-outline" 
+            slot="end" 
+            color="primary" 
+            *ngIf="form.get('title').valid">
+          </ion-icon>
+        </ion-item>
+      </ion-item-group>
+    </ion-list>
+    <div class="ion-padding-horizontal">
+      <ion-button 
+        *ngIf="!isSubmitted"
+        expand="block" 
+        type="submit" 
+        color="primary"
+        [disabled]="!form?.valid"
+        (click)="onSubmit()">Order Now
+      </ion-button>
+      <ion-button 
+        *ngIf="isSubmitted"
+        expand="block" 
+        color="primary">
+        <ion-spinner name="crescent"></ion-spinner>
+      </ion-button>
+    </div>
+  </form>
+</ng-container>
+
+<ng-container *ngIf="isOrdered==true">
+    <ion-grid >
+      <ion-row>
+        <ion-col class="ion-text-center">
+        <ion-icon class="order" name="checkmark-circle-sharp" color="success"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+    <ion-col lines="none" class="ion-text-center">
+      <ion-label >
+        Your Order will be Delivered within 30 minutes 
+      </ion-label>
+      <ion-text >
+        <p>at {{data.address}}</p>
+      </ion-text>
+    </ion-col>
+    </ion-row>
+      </ion-grid>
+  </ng-container>
+</ion-content>
+<ion-footer *ngIf="isOrdered==true">
+  <ion-toolbar>
+    <ion-row>
+      <ion-col size="12" class="ion-text-center colStyle" >
+        <ion-button [routerLink]="['/','tabs','home']" color="white" fill="clear">Home</ion-button>
+      </ion-col></ion-row>
+  </ion-toolbar>
+</ion-footer>
